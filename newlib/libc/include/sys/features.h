@@ -43,6 +43,10 @@ extern "C" {
 /* Version with trailing underscores for BSD compatibility. */
 #define	__GNUC_PREREQ__(ma, mi)	__GNUC_PREREQ(ma, mi)
 
+#ifdef __AVERY__
+#define _POSIX_THREADS 1
+#endif /* __AVERY__ */
+
 /* RTEMS adheres to POSIX -- 1003.1b with some features from annexes.  */
 
 #ifdef __rtems__
