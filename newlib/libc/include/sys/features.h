@@ -45,6 +45,8 @@ extern "C" {
 
 #ifdef __AVERY__
 #define _POSIX_THREADS 1
+#define _POSIX_READER_WRITER_LOCKS      200112L
+#define _POSIX_SPIN_LOCKS               200112L
 #endif /* __AVERY__ */
 
 /* RTEMS adheres to POSIX -- 1003.1b with some features from annexes.  */
