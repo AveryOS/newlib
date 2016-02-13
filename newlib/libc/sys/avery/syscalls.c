@@ -1,4 +1,3 @@
-/* note these headers are all provided by newlib - you don't need to provide them */
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/fcntl.h>
@@ -6,8 +5,15 @@
 #include <sys/errno.h>
 #include <sys/time.h>
 #include <stdio.h>
+#include <pthread.h>
+
+void _exit(int status)
+{
+  __builtin_unreachable ();
+}
+
  /*
-void _exit();
+}
 int close(int file);
 char **environ; // pointer to array of char * strings that define the current environment variables
 int execve(char *name, char **argv, char **env);
