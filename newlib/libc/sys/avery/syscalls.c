@@ -6,9 +6,47 @@
 #include <sys/time.h>
 #include <stdio.h>
 #include <pthread.h>
+#include <_syslist.h>
+
+static inline void print_val(intptr_t val)
+{
+	asm ("int $45" :: "a"(val));
+}
+
+int open(const char *file, int flags, ...)
+{
+	print_val(0xDEADDEAD);
+  errno = ENOSYS;
+  return -1;
+}
+
+int isatty(int file) {
+	print_val(0xDEADAAAAA);
+  return 1;
+}
+
+static const intptr_t size = 0xF0000;
+static char mem[size];
+static char *ptr = mem;
+static char *ptr_end = mem + size;
+
+void *
+sbrk (intptr_t incr)
+{
+	print_val(0xEAEAEAEAEAEA);
+	if (ptr + incr <= ptr_end) {
+		char *r = ptr;
+		ptr += incr;
+		return r;
+	} else {
+		errno = ENOMEM;
+		return (void *)-1;
+	}
+}
 
 void _exit(int status)
 {
+	asm ("int $46");
   __builtin_unreachable ();
 }
 
