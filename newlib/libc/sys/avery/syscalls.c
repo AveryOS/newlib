@@ -33,7 +33,6 @@ static char *ptr_end = mem + size;
 void *
 sbrk (intptr_t incr)
 {
-	print_val(0xEAEAEAEAEAEA);
 	if (ptr + incr <= ptr_end) {
 		char *r = ptr;
 		ptr += incr;
@@ -47,11 +46,31 @@ sbrk (intptr_t incr)
 void _exit(int status)
 {
 	asm ("int $46");
-  __builtin_unreachable ();
+}
+
+void printstr(const void *buff, size_t bytes) {
+	asm ("int $48" :: "a"(buff), "b"(bytes));
+}
+
+int write(int fd, const void *buff, size_t bytes) {
+	print_val(fd);
+	if (fd == 1 || fd == 2) {
+		asm ("int $47" :: "a"(buff), "b"(bytes));
+		asm volatile("xchgw %bx, %bx");
+		return 0;
+	}
+	errno = ENOSYS;
+	return -1;
+}
+
+off_t lseek(int fd, off_t offset, int dir) {
+	print_val(0xADADAD);
+	printf("seeking in %d\n", fd);
+	errno = ENOSYS;
+	return -1;
 }
 
  /*
-}
 int close(int file);
 char **environ; // pointer to array of char * strings that define the current environment variables
 int execve(char *name, char **argv, char **env);

@@ -417,7 +417,7 @@ typedef struct {
 
 /* Keys */
 
-typedef __uint32_t pthread_key_t;        /* thread-specific data keys */
+typedef intptr_t pthread_key_t;        /* thread-specific data keys */
 
 typedef struct {
   int   is_initialized;  /* is this structure initialized? */

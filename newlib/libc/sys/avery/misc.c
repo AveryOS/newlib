@@ -1,82 +1,89 @@
 #include <stdint.h>
+#include <stdio.h>
 #include <sys/errno.h>
+
+void _exit(int status);
+
+void _unsupported() {
+  asm ("int $47;int $46" :: "a"("\nUnsupported operation"), "b"(sizeof("\nUnsupported operation")-1));
+}
 
 void
 _Unwind_Resume(void *ptr)
 {
-  __builtin_unreachable ();
+  _unsupported ();
 }
 
 void
 _Unwind_Backtrace()
 {
-  __builtin_unreachable ();
+  _unsupported ();
 }
 
 void
 _Unwind_GetIPInfo()
 {
-  __builtin_unreachable ();
+  _unsupported ();
 }
 
 void
 _Unwind_FindEnclosingFunction()
 {
-  __builtin_unreachable ();
+  _unsupported ();
 }
 
 void
 _Unwind_GetLanguageSpecificData()
 {
-  __builtin_unreachable ();
+  _unsupported ();
 }
 
 void
 _Unwind_GetIP()
 {
-  __builtin_unreachable ();
+  _unsupported ();
 }
 
 void
 _Unwind_GetRegionStart()
 {
-  __builtin_unreachable ();
+  _unsupported ();
 }
 
 void
 _Unwind_RaiseException()
 {
-  __builtin_unreachable ();
+  _unsupported ();
 }
 
 void
 _Unwind_DeleteException()
 {
-  __builtin_unreachable ();
+  _unsupported ();
 }
 
 void
 _Unwind_SetGR()
 {
-  __builtin_unreachable ();
+  _unsupported ();
 }
 
 void
 _Unwind_SetIP()
 {
-  __builtin_unreachable ();
+  _unsupported ();
 }
 
 void
 compilerrt_abort_impl()
 {
-  __builtin_unreachable ();
+  _unsupported ();
 }
 
 int
 posix_memalign (void **memptr, size_t alignment, size_t size)
 {
-  __builtin_unreachable ();
+  _unsupported ();
   return ENOMEM;
 }
 
