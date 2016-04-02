@@ -8,6 +8,9 @@
 #include <pthread.h>
 #include <_syslist.h>
 
+// Bochs magic breakpoint
+// asm volatile("xchgw %bx, %bx");
+
 static inline void print_val(intptr_t val)
 {
 	asm ("int $45" :: "a"(val));
@@ -48,16 +51,10 @@ void _exit(int status)
 	asm ("int $46");
 }
 
-void printstr(const void *buff, size_t bytes) {
-	asm ("int $48" :: "a"(buff), "b"(bytes));
-}
-
 int write(int fd, const void *buff, size_t bytes) {
-	print_val(fd);
 	if (fd == 1 || fd == 2) {
 		asm ("int $47" :: "a"(buff), "b"(bytes));
-		asm volatile("xchgw %bx, %bx");
-		return 0;
+		return bytes;
 	}
 	errno = ENOSYS;
 	return -1;
