@@ -75,6 +75,18 @@ _Unwind_SetIP()
 }
 
 void
+_Unwind_GetTextRelBase()
+{
+  _unsupported ();
+}
+
+void
+_Unwind_GetDataRelBase()
+{
+  _unsupported ();
+}
+
+void
 compilerrt_abort_impl()
 {
   _unsupported ();
