@@ -146,6 +146,27 @@ pthread_spin_init (pthread_spinlock_t *spinlock, int pshared)
 }
 
 int
+pthread_condattr_init (pthread_condattr_t * attr)
+{
+  _unsupported ();
+  return -1;
+}
+
+int
+pthread_condattr_setclock (pthread_condattr_t * attr, clockid_t clock_id)
+{
+  _unsupported ();
+  return -1;
+}
+
+int
+pthread_condattr_destroy (pthread_condattr_t * attr)
+{
+  _unsupported ();
+  return -1;
+}
+
+int
 pthread_cond_init (pthread_cond_t * cond, const pthread_condattr_t * attr)
 {
   _unsupported ();
